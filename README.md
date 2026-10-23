@@ -11,8 +11,8 @@ Jetson Orin Nano Super 8GB에서 EmbeddingGemma 2로 텍스트·영상·음성�
 | 1 환경 준비 | [step-01](docs/reports/step-01.md) | 통과 |
 | 2 패키지·모델 설치 | [step-02](docs/reports/step-02.md) | 통과 |
 | 3 텍스트 테스트 | [step-03](docs/reports/step-03.md) | 통과 (질의 1 여유 0.006) |
-| 4 영상 테스트 | — | 대기 |
-| 5 음성 테스트 | — | 선택 (다른 단계의 전제가 아님) |
+| 4 영상 테스트 | — | 보류 (카메라를 팀원이 사용 중) |
+| 5 음성 테스트 | [step-05](docs/reports/step-05.md) | 부분 통과 (2/3, 음성 질의 0.001 차) |
 | 6 성능 측정 | — | 대기 |
 | 7 도메인 미세 조정 | — | 대기 |
 | 8 웹캠 물체 추출·검색 | — | 대기 |
