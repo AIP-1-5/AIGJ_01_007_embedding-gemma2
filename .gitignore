@@ -250,3 +250,8 @@ media/
 .DS_Store
 .vscode/
 .idea/
+
+# 8단계 앱 산출물 (크롭 이미지, YOLOE 텍스트 인코더 가중치)
+crops/
+mobileclip*
+*.ts
