@@ -218,3 +218,35 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ── 이 실습 전용 ──
+# 비밀값 (RTSP 주소, HF 토큰)
+.env.*
+!.env.example
+
+# 모델·학습 결과 (보드의 /srv/team5에 둔다)
+models/
+runs/
+hf/
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.engine
+*.gguf
+
+# 미디어 (용량, 사람 얼굴·목소리)
+media/
+*.mp4
+*.avi
+*.jpg
+*.jpeg
+*.png
+*.wav
+!docs/**/*.png
+
+# 개인 설정
+.claude/settings.local.json
+.DS_Store
+.vscode/
+.idea/
