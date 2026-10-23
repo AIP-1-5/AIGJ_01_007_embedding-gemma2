@@ -17,7 +17,7 @@ Jetson Orin Nano에서 EmbeddingGemma 2로 텍스트·영상·음성 임베딩 �
 - 원문의 해당 단계 "확인 포인트"와 "기대값"을 그 단계의 완료 조건으로 쓴다.
 - 실행 후에는 완료 조건을 하나씩 실제로 확인하고, 통과/미통과를 숫자와 함께 `docs/reports/step-NN.md`에 남긴다.
   숫자는 실제 출력만 쓴다. 측정하지 못한 것은 "미측정".
-- 단계가 끝나면 `/step-end N` 형식으로 `docs/reports/step-NN.md`와 `docs/study/step-NN-*.md`를 쓰고, **단계마다 커밋**한 뒤 다음 단계로 간다. push는 사용자가 한다.
+- 단계가 끝나면 `/step-end N` 형식으로 `docs/reports/step-NN.md`와 `docs/study/step-NN-*.md`를 쓰고, **단계마다 커밋하고 push**한 뒤 다음 단계로 간다(2026-10-23부터 push도 Claude가 한다). push 전 `git status`로 `media/`, 모델, `.env`가 섞이지 않았는지 확인한다.
 - 단계가 끝날 때 사용자에게는 짧게: 판정 3줄 + 회상 질문 1개(답 없이).
 - 원문 코드는 `src/`로 옮기고, 원문과 우리 환경(JetPack 7, cu132, 공용 HF 캐시 `/srv/team5/hf`)이 다른 곳은 코드 주석과 `docs/reports`에 남긴다.
 - 하루 끝은 `/day-end`.

@@ -6,7 +6,7 @@ allowed-tools: Read, Edit, Write, Glob, Grep, Bash(git status:*), Bash(git diff:
 
 # /step-end $ARGUMENTS
 
-실습 $ARGUMENTS단계를 마무리한다. 문서를 쓰고 점검을 통과하면 **이 단계 결과를 커밋한다**(push는 사용자가).
+실습 $ARGUMENTS단계를 마무리한다. 문서를 쓰고 점검을 통과하면 **이 단계 결과를 커밋하고 push한다**.
 
 ## 1. 판정: `docs/reports/step-NN.md` (NN = 두 자리)
 
