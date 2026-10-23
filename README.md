@@ -15,7 +15,7 @@ Jetson Orin Nano Super 8GB에서 EmbeddingGemma 2로 텍스트·영상·음성�
 | 5 음성 테스트 | [step-05](docs/reports/step-05.md) | 부분 통과 (2/3, 음성 질의 0.001 차) |
 | 6 성능 측정 | [step-06](docs/reports/step-06.md) | 통과 (5개 구성 실측) |
 | 7 도메인 미세 조정 | [step-07](docs/reports/step-07.md) | 부분 통과 (acc@1 0.817→0.867, 일반 질의 1개 회귀) |
-| 8 웹캠 물체 추출·검색 | — | 대기 |
+| 8 웹캠 물체 추출·검색 | [step-08](docs/reports/step-08.md) | 진행 중 (8-1·8-2 완료, yoloe 대기) |
 | 9 사람 동작 인식 | — | 대기 |
 | 10 카메라 2대 접근 감지 | — | 대기 (카메라 2대 필요, 팀 합동) |
 

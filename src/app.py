@@ -19,6 +19,10 @@ import subprocess
 import threading
 import time
 
+# 원문에 없음: ultralytics는 빠진 패키지(lap 등)를 pip로 자동 설치하는데, torch 버전 고정(-c torch-pin.txt) 없이 설치한다.
+# 자동 설치를 끄고, 필요한 패키지는 직접 고정해 설치한다 (docs/reports/step-08.md).
+os.environ.setdefault("YOLO_AUTOINSTALL", "False")
+
 import cv2
 import numpy as np
 import psutil

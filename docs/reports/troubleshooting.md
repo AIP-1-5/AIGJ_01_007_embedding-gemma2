@@ -21,3 +21,6 @@
 | 2026-10-23 | 4 | 녹화 1회 `av.error.ArgumentError: Invalid argument: 'media/clip.mp4' returned 22` | 미확인 (바로 재실행 시 성공, 재현 안 됨) | 재실행 |
 | 2026-10-23 | 4 | `{"video": 경로}` → `torchcodec is not installed`. torchcodec 설치 후에도 `Could not load this library: libtorchcodec_core4.so` | transformers 5.20이 영상 디코딩에 torchcodec 요구. torchcodec의 FFmpeg 8 백엔드는 `libswscale.so.9`가 필요한데 보드 FFmpeg(NVIDIA 최소 빌드)에 없음 (`ldd`로 확인) | torchcodec 제거, PyAV로 1 fps 프레임 배열을 넘김 (`src/test_vision.py`). 시스템 FFmpeg는 건드리지 않음 |
 | 2026-10-23 | 4 | 1 fps로 뽑으려 했는데 151프레임 전부 들어가 영상 1개 7.6~9.2 s | `frame.time` 기준 비교가 의도대로 동작하지 않음 | 프레임 번호 기준 샘플링 → 11프레임, 2.0 s |
+| 2026-10-23 | 8 | ultralytics 설치 시 numpy 1.26.4 → 2.5.4 충돌 예고 | pyctcdecode가 `numpy<2` 요구 (원문 Q12) | pyctcdecode 제거 후 설치 |
+| 2026-10-23 | 8 | 앱 첫 실행에서 `Ultralytics requirement ['lap>=0.5.12'] not found, attempting AutoUpdate...`, 화면 0바이트 | 추적(track)에 lap 필요. ultralytics가 **torch 고정 없이** pip 자동 설치 | 앱 중지, 남은 pip 프로세스 종료, `pip install -c ~/eg2/torch-pin.txt lap`, `YOLO_AUTOINSTALL=False` (`src/app.py`). torch 그대로 확인 |
+| 2026-10-23 | 8 | 프레임마다 `'half' is deprecated ... Use 'quantize' instead` | ultralytics 8.4 인자 변경 | 동작 영향 없음, 그대로 둠 |
