@@ -25,7 +25,7 @@ Jetson torch를 버전 고정 파일로 묶은 채 sentence-transformers를 설�
 ### 인코더 선택 로드
 - 정의: 멀티모달 모델에서 비전·오디오 인코더 설정을 `None`으로 넘겨 가중치를 올리지 않는다.
 - 비유: `SELECT *` 대신 필요한 컬럼만. 또는 지연 로딩(lazy loading).
-- 이 레포에서는: `src/eg2.py:19-21` — `vision_config`, `audio_config`를 `None`으로.
+- 이 레포에서는: `src/eg2.py:20-21` — `vision_config`, `audio_config`를 `None`으로.
 - 잘못하면: 텍스트 검색만 하는데 740M 전체가 올라가 공용 8GB 메모리를 낭비한다. 텍스트 전용만으로도 RSS가 2328 MB였다.
 
 ## 비교

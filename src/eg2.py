@@ -12,14 +12,19 @@ import torch
 from sentence_transformers import SentenceTransformer
 
 MODEL_ID = "google/embeddinggemma-2"
+MAX_SEQ_LEN = 8192
 
 
 def load(vision=False, audio=False):
     cfg = {}
     if not vision: cfg["vision_config"] = None   # 미사용 인코더는 로드하지 않음
     if not audio:  cfg["audio_config"] = None
-    return SentenceTransformer(
+    model = SentenceTransformer(
         MODEL_ID, device="cuda",
         model_kwargs={"torch_dtype": torch.bfloat16},  # float16 금지 (임베딩 NaN)
         config_kwargs=cfg,
     )
+    # 원문에 없음. 기본 max_seq_length가 사실상 무제한(1e30)이라 긴 문서가 잘리지 않는다.
+    # 약 14,000토큰 입력에서 attention mask 1.48GiB 할당으로 OOM (3단계 보고서). 모델 컨텍스트 8,192로 자른다.
+    model.max_seq_length = MAX_SEQ_LEN
+    return model

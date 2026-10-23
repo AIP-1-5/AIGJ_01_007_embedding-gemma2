@@ -10,7 +10,7 @@ Jetson Orin Nano Super 8GB에서 EmbeddingGemma 2로 텍스트·영상·음성�
 |---|---|---|
 | 1 환경 준비 | [step-01](docs/reports/step-01.md) | 통과 |
 | 2 패키지·모델 설치 | [step-02](docs/reports/step-02.md) | 통과 |
-| 3 텍스트 테스트 | — | 대기 |
+| 3 텍스트 테스트 | [step-03](docs/reports/step-03.md) | 통과 (질의 1 여유 0.006) |
 | 4 영상 테스트 | — | 대기 |
 | 5 음성 테스트 | — | 선택 (다른 단계의 전제가 아님) |
 | 6 성능 측정 | — | 대기 |
