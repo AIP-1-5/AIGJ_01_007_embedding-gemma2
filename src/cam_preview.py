@@ -1,6 +1,6 @@
 """카메라 미리보기 + 장면 찍기 (4단계 자료 준비용, 원문에 없음).
-저장소 루트에서 실행: python src/cam_preview.py [--usb 0] [--port 8090]
-맥 브라우저에서 http://<보드 Tailscale IP>:8090 → 방향을 맞추고 이름을 넣어 [찍기] → media/<이름>.jpg
+저장소 루트에서 실행: ~/practice.sh yj ~/eg2/bin/python src/cam_preview.py [--usb 0] [--port 8002]
+맥 브라우저에서 http://<보드 Tailscale IP>:8002 → 방향을 맞추고 이름을 넣어 [찍기] → media/<이름>.jpg
 
 - 보드 모니터는 다른 계정의 데스크톱 세션이라 쓰지 않는다. 브라우저로 본다.
 - 강의실 영상이라 Tailscale 주소에만 연다 (교육장 LAN에 열지 않는다).
@@ -18,7 +18,7 @@ import av
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--usb", type=int, default=0)
-ap.add_argument("--port", type=int, default=8090)
+ap.add_argument("--port", type=int, default=8002)   # 팀 규칙: 내 앱 포트
 args = ap.parse_args()
 
 latest = {"jpg": None}
