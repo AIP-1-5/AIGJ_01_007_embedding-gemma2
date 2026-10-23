@@ -11,7 +11,8 @@ os.environ.setdefault("HF_HOME", "/srv/team5/hf")
 import torch
 from sentence_transformers import SentenceTransformer
 
-MODEL_ID = "google/embeddinggemma-2"
+# 원문 7단계: 미세 조정 후 MODEL_ID를 "models/eg2-classroom"으로 바꾼다. 우리는 파일을 고치지 않고 환경 변수로 바꾼다.
+MODEL_ID = os.environ.get("EG2_MODEL", "google/embeddinggemma-2")
 MAX_SEQ_LEN = 8192
 
 
