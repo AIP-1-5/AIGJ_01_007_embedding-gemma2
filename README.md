@@ -30,7 +30,7 @@ Jetson Orin Nano Super 8GB에서 EmbeddingGemma 2로 텍스트·영상·음성�
 | `CLAUDE.md` | Claude Code 작업 규칙, 장비 정보 |
 | `.claude/commands/` | `/day-start` `/day-end` `/step-start` `/step-end` |
 
-## 시작하기 (보드 B, 내 계정)
+## 시작하기 (보드 A, 내 계정)
 
 실습 원문은 Private 저장소 `AIP-1/embedding_gemma2`에 있다. 두 저장소를 나란히 clone한다.
 

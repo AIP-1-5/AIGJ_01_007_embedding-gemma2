@@ -12,7 +12,7 @@ allowed-tools: Read, Glob, Grep, Bash(git status:*), Bash(git log:*), Bash(ls:*)
 
 1. `../embedding_gemma2/README.md`에서 $ARGUMENTS단계 전체와, Q&A 섹션 중 이 단계 관련 항목.
    파일이 없으면 맨 위에 알리고 멈춘다.
-2. `CLAUDE.md`의 장비 정보 (JetPack 7 → cu132 경로, 보드 B 전용, sudo는 사용자가).
+2. `CLAUDE.md`의 장비 정보 (JetPack 7 → cu132 경로, 보드 A에서 실행·팀원 수집기 건드리지 않음, 4단계 이후는 실행 전 확인, sudo는 사용자가).
 3. `docs/reports/`의 앞 단계 결과, `docs/reports/troubleshooting.md`, `docs/roadmap.md` 현재 위치.
 4. 지금 보드 상태: `free -h`, `ps -eo user,pid,rss,cmd | grep -i python | grep -v grep` (다른 계정이 모델을 올렸는지).
 
