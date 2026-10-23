@@ -6,13 +6,14 @@ allowed-tools: Read, Glob, Grep, Bash(git status:*), Bash(git log:*), Bash(ls:*)
 
 # /step-start $ARGUMENTS
 
-실습 $ARGUMENTS단계를 시작한다. **읽고 계획만 한다. 설치·실행·파일 수정을 하지 않는다.**
+실습 $ARGUMENTS단계를 시작한다. 읽고 계획을 세운 뒤, **연속 진행**이므로 승인을 기다리지 않고 바로 실행한다.
+멈추는 경우는 `CLAUDE.md`의 "멈추고 사용자에게 묻는 경우"뿐이다.
 
 ## 1. 읽을 것
 
 1. `../embedding_gemma2/README.md`에서 $ARGUMENTS단계 전체와, Q&A 섹션 중 이 단계 관련 항목.
    파일이 없으면 맨 위에 알리고 멈춘다.
-2. `CLAUDE.md`의 장비 정보 (JetPack 7 → cu132 경로, 보드 A에서 실행·팀원 수집기 건드리지 않음, 4단계 이후는 실행 전 확인, sudo는 사용자가).
+2. `CLAUDE.md`의 장비 정보 (JetPack 7 → cu132 경로, 보드 A에서 실행·팀원 수집기 건드리지 않음, 4·7·8·9단계 큰 실행 직전 확인, sudo는 사용자가).
 3. `docs/reports/`의 앞 단계 결과, `docs/reports/troubleshooting.md`, `docs/roadmap.md` 현재 위치.
 4. 지금 보드 상태: `free -h`, `ps -eo user,pid,rss,cmd | grep -i python | grep -v grep` (다른 계정이 모델을 올렸는지).
 
@@ -35,7 +36,7 @@ allowed-tools: Read, Glob, Grep, Bash(git status:*), Bash(git log:*), Bash(ls:*)
 ### 예상 시간
 - 하루 5시간 기준으로 이 단계에 쓸 시간.
 
-마지막 줄: "진행할까요?" 승인을 받기 전에는 실행하지 않는다.
+계획을 출력한 뒤 바로 실행한다. 단, `CLAUDE.md`의 멈춤 조건(sudo, 물리 작업·비밀값, 4·7·8·9단계 큰 실행 직전, 10단계 카메라 1대, 같은 오류 2회)에 걸리면 그 지점에서 묻는다.
 
 ## 규칙
 

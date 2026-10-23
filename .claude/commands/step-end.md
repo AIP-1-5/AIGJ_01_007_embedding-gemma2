@@ -1,12 +1,12 @@
 ---
 description: 실습 N단계 마무리 — 완료 조건 판정(docs/reports)과 학습 노트(docs/study) 작성
 argument-hint: <단계 번호 1~10>
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(ls:*), Bash(date:*), Bash(grep:*)
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Bash(ls:*), Bash(date:*), Bash(grep:*)
 ---
 
 # /step-end $ARGUMENTS
 
-실습 $ARGUMENTS단계를 마무리한다. **커밋은 하지 않는다(`/day-end`에서).**
+실습 $ARGUMENTS단계를 마무리한다. 문서를 쓰고 점검을 통과하면 **이 단계 결과를 커밋한다**(push는 사용자가).
 
 ## 1. 판정: `docs/reports/step-NN.md` (NN = 두 자리)
 
@@ -34,7 +34,12 @@ allowed-tools: Read, Edit, Write, Glob, Grep, Bash(git status:*), Bash(git diff:
 - `grep -rnE 'rtsp://|hf_[A-Za-z0-9]{10,}' docs/` 결과가 비어 있어야 한다.
 - 사람 이름이 없는지 확인한다.
 
-## 4. 출력
+## 4. 커밋
+
+- 이 단계의 `src/`, `docs/reports/`, `docs/study/`, `README.md` 변경만 스테이징한다. `media/`, 모델 파일, `.env`가 섞이지 않았는지 `git status`로 확인한다.
+- 메시지: `Step N: <이름>`.
+
+## 5. 출력
 
 - 판정 요약 3줄 이내
 - 학습 노트에서 바로 회상해 볼 질문 1개 (답은 쓰지 않는다)
