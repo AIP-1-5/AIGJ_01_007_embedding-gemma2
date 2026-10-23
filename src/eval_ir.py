@@ -7,6 +7,7 @@
 - 보드에서는 공용 캐시 /srv/team5/hf를 쓴다 (맥에는 이 폴더가 없으므로 있을 때만).
 - accuracy@5, 질의별 1위 오답 목록도 출력한다 (어디서 틀리는지 보려고).
 - max_seq_length를 8192로 자른다 (3단계: 기본값이 무제한이라 긴 입력에서 OOM).
+- 데이터는 원문 저장소에 없어 직접 썼다 (data/, docs/reports/step-07.md 한계 참고).
 """
 import json
 import os
@@ -18,7 +19,10 @@ if os.path.isdir("/srv/team5/hf"):
 
 import torch
 from sentence_transformers import SentenceTransformer
-from sentence_transformers.evaluation import InformationRetrievalEvaluator
+try:  # 원문 경로(sentence_transformers.evaluation)는 6.2.0에서 DeprecationWarning
+    from sentence_transformers.sentence_transformer.evaluation import InformationRetrievalEvaluator
+except ImportError:
+    from sentence_transformers.evaluation import InformationRetrievalEvaluator
 
 
 def pick_device():

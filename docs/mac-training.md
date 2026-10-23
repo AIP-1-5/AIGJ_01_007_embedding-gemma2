@@ -33,7 +33,8 @@ python src/train_ft.py 2>&1 | tee runs/train.log      # 기본: 3 epoch, 배치 
 
 - 끝나면 학습 전후 점수와 학습 시간이 출력되고 `runs/eg2-classroom/summary.json`에 저장된다.
 - 메모리 부족(`MPS backend out of memory`)이면: `python src/train_ft.py --batch 4 --accum 4`
-- 학습 후 점수가 오히려 떨어지면(과적합): `python src/train_ft.py --epochs 1 --lr 1e-5`
+- 학습 후 점수가 오히려 떨어져도 **평가 결과를 보고 epoch·lr을 바꿔 다시 돌리지 않는다**(팀 규칙: 평가 데이터로 설정을 고르지 않는다).
+  떨어진 결과를 그대로 보고서에 쓴다. 설정을 바꿔 보려면 학습 데이터에서 검증용을 따로 떼어 그걸로 고른다.
 - 맥은 float32로 학습하고 저장만 bfloat16으로 한다(약 0.5GB).
 
 ## 4. 보드로 옮기기
