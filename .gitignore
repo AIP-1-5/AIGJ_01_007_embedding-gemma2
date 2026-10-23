@@ -255,3 +255,7 @@ media/
 crops/
 mobileclip*
 *.ts
+
+# 9단계 관절 좌표 녹화 (사람 동작 데이터, 커밋하지 않음)
+data/action/
+data/behavior/
