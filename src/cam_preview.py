@@ -5,6 +5,7 @@
 - 보드 모니터는 다른 계정의 데스크톱 세션이라 쓰지 않는다. 브라우저로 본다.
 - 강의실 영상이라 Tailscale 주소에만 연다 (교육장 LAN에 열지 않는다).
 - 웹캠의 MJPEG 패킷을 디코딩 없이 그대로 보낸다 (CPU를 거의 안 쓴다).
+- 페이지는 /frame.jpg를 한 장씩 다시 받는다. Safari 등에서 MJPEG 스트림(<img src=/stream>)이 안 그려졌다.
 """
 import argparse
 import re
@@ -38,7 +39,14 @@ def capture():
 PAGE = """<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 <title>카메라 미리보기</title>
 <body style="font-family:sans-serif;margin:16px">
-<img src="/stream" style="max-width:100%;border:1px solid #888"><p>
+<img id="v" style="max-width:100%;border:1px solid #888"><p>
+<script>
+// MJPEG(<img src=/stream>)를 못 그리는 브라우저(Safari 등)가 있어 한 장씩 다시 받는다 (약 8fps)
+const v = document.getElementById("v");
+function next() { const i = new Image(); i.onload = () => { v.src = i.src; setTimeout(next, 120); };
+  i.onerror = () => setTimeout(next, 1000); i.src = "/frame.jpg?t=" + Date.now(); }
+next();
+</script>
 <form onsubmit="fetch('/snap?name='+encodeURIComponent(n.value)).then(r=>r.text()).then(t=>{log.textContent=t+'\\n'+log.textContent});return false">
 장면 이름 <input id="n" placeholder="whiteboard" required> <button>찍기</button></form>
 <pre id="log"></pre></body>"""
@@ -56,6 +64,14 @@ class H(BaseHTTPRequestHandler):
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
             self.wfile.write(body)
+        elif u.path == "/frame.jpg":
+            jpg = latest["jpg"] or b""
+            self.send_response(200)
+            self.send_header("Content-Type", "image/jpeg")
+            self.send_header("Content-Length", str(len(jpg)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(jpg)
         elif u.path == "/stream":
             self.send_response(200)
             self.send_header("Content-Type", "multipart/x-mixed-replace; boundary=f")

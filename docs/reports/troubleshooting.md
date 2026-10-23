@@ -17,3 +17,7 @@
 | 2026-10-23 | 7 (맥) | 맥 기본 Python 3.9.6 | sentence-transformers 6은 3.10 이상 | uv로 Python 3.12 venv (`docs/mac-training.md`) |
 | 2026-10-23 | 7 (맥) | `EmbeddingGemma2Processor requires the PIL library` → 이어서 `...VideoProcessor requires the Torchvision library` | 텍스트만 써도 프로세서가 이미지·비디오 전처리기를 같이 로드 | `sentence-transformers[image,audio,video,train]` + torchvision |
 | 2026-10-23 | 7 (맥) | `ImportError: pyarrow requires NumPy 2.0 or newer, found 1.26.4` | `[audio]`의 pyctcdecode가 numpy<2로 내림 (보드 2단계와 같은 원인) | pyctcdecode 제거, `numpy>=2` (원문 Q12) |
+| 2026-10-23 | 4 | Safari에서 미리보기 영상이 안 보임 (페이지·찍기는 됨) | `<img src=/stream>` MJPEG(multipart) 렌더링 문제로 추정 | `/frame.jpg`를 JS로 반복 요청 (`src/cam_preview.py`) |
+| 2026-10-23 | 4 | 녹화 1회 `av.error.ArgumentError: Invalid argument: 'media/clip.mp4' returned 22` | 미확인 (바로 재실행 시 성공, 재현 안 됨) | 재실행 |
+| 2026-10-23 | 4 | `{"video": 경로}` → `torchcodec is not installed`. torchcodec 설치 후에도 `Could not load this library: libtorchcodec_core4.so` | transformers 5.20이 영상 디코딩에 torchcodec 요구. torchcodec의 FFmpeg 8 백엔드는 `libswscale.so.9`가 필요한데 보드 FFmpeg(NVIDIA 최소 빌드)에 없음 (`ldd`로 확인) | torchcodec 제거, PyAV로 1 fps 프레임 배열을 넘김 (`src/test_vision.py`). 시스템 FFmpeg는 건드리지 않음 |
+| 2026-10-23 | 4 | 1 fps로 뽑으려 했는데 151프레임 전부 들어가 영상 1개 7.6~9.2 s | `frame.time` 기준 비교가 의도대로 동작하지 않음 | 프레임 번호 기준 샘플링 → 11프레임, 2.0 s |
