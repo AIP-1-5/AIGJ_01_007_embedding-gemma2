@@ -14,3 +14,6 @@
 | 2026-10-23 | 4 | 보드 모니터로 카메라 미리보기 불가 | 모니터는 다른 계정의 데스크톱 세션 | Tailscale 주소에만 여는 MJPEG 웹 미리보기 (`src/cam_preview.py`) |
 | 2026-10-23 | 5 | espeak-ng 없음, ffmpeg `sine`·`anoisesrc` 필터 없음 | apt 미설치(sudo 필요), NVIDIA 최소 ffmpeg | gTTS·numpy로 생성 (`src/make_audio.py`) |
 | 2026-10-23 | 5 | `huggingface-hub 2.2.0 requires click>=8.4.2, but you have click 8.1.8` | gTTS가 `click<8.2` 요구 | 생성 후 gTTS 제거, `click>=8.4.2` 재설치 |
+| 2026-10-23 | 7 (맥) | 맥 기본 Python 3.9.6 | sentence-transformers 6은 3.10 이상 | uv로 Python 3.12 venv (`docs/mac-training.md`) |
+| 2026-10-23 | 7 (맥) | `EmbeddingGemma2Processor requires the PIL library` → 이어서 `...VideoProcessor requires the Torchvision library` | 텍스트만 써도 프로세서가 이미지·비디오 전처리기를 같이 로드 | `sentence-transformers[image,audio,video,train]` + torchvision |
+| 2026-10-23 | 7 (맥) | `ImportError: pyarrow requires NumPy 2.0 or newer, found 1.26.4` | `[audio]`의 pyctcdecode가 numpy<2로 내림 (보드 2단계와 같은 원인) | pyctcdecode 제거, `numpy>=2` (원문 Q12) |
