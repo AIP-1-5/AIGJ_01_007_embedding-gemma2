@@ -24,3 +24,6 @@
 | 2026-10-23 | 8 | ultralytics 설치 시 numpy 1.26.4 → 2.5.4 충돌 예고 | pyctcdecode가 `numpy<2` 요구 (원문 Q12) | pyctcdecode 제거 후 설치 |
 | 2026-10-23 | 8 | 앱 첫 실행에서 `Ultralytics requirement ['lap>=0.5.12'] not found, attempting AutoUpdate...`, 화면 0바이트 | 추적(track)에 lap 필요. ultralytics가 **torch 고정 없이** pip 자동 설치 | 앱 중지, 남은 pip 프로세스 종료, `pip install -c ~/eg2/torch-pin.txt lap`, `YOLO_AUTOINSTALL=False` (`src/app.py`). torch 그대로 확인 |
 | 2026-10-23 | 8 | 프레임마다 `'half' is deprecated ... Use 'quantize' instead` | ultralytics 8.4 인자 변경 | 동작 영향 없음, 그대로 둠 |
+| 2026-10-26 | 8 | yoloe `set_classes`에서 `ModuleNotFoundError: No module named 'clip'` (`AutoUpdate disabled by YOLO_AUTOINSTALL=False`) | YOLOE 텍스트 인코더가 ultralytics CLIP 패키지를 요구. 자동 설치는 꺼 둠 | 아래 행 |
+| 2026-10-26 | 8 | `pip install git+…/CLIP.git` → `No matching distribution found for setuptools>=70`, 맥에서도 `No route to host` | 교육장 네트워크가 pypi.org·files.pythonhosted.org를 막음 (github.com, huggingface.co는 됨) | ftfy는 GitHub 릴리스 wheel, wcwidth·CLIP은 GitHub 소스를 `--no-index --no-build-isolation -c ~/eg2/torch-pin.txt`로 설치. torch `2.14.1+cu132` 그대로 확인 |
+| 2026-10-26 | 8 | yoloe 첫 실행 때 `mobileclip_blt.ts` 572MB를 작업 폴더에 받음 | ultralytics가 텍스트 인코더를 현재 폴더에 저장 | 그대로 둠(`.gitignore`의 `mobileclip*`) |
