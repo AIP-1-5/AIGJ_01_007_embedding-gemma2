@@ -65,3 +65,42 @@ scp -r <맥 사용자>@<맥 Tailscale IP>:Chosun_AIPJ/AIP-1-5/AIGJ_01_007_embedd
 python src/eval_ir.py models/eg2-classroom
 EG2_MODEL=models/eg2-classroom python src/test_text.py     # 도메인 밖 일반 질의(3단계)가 무너지지 않았는지
 ```
+
+---
+
+# 맥(MPS)에서 9-6 GRU 학습하기
+
+7단계와 같은 `~/eg2-mac` 환경을 쓴다(위 2번). 추가 설치는 없다(torch, numpy만 사용).
+
+## 1. 관절 CSV 받기
+
+9-3에서 보드가 녹화한 CSV(`data/action/*.csv`, `data/behavior/*.csv`)는 사람 동작 기록이라 커밋하지 않는다(`.gitignore`). scp로 옮긴다.
+
+```bash
+cd ~/Chosun_AIPJ/AIP-1-5/AIGJ_01_007_embedding-gemma2 && git pull --ff-only
+mkdir -p data/action data/behavior
+scp 'board-a:~/work/AIGJ_01_007_embedding-gemma2/data/action/*.csv'   data/action/
+scp 'board-a:~/work/AIGJ_01_007_embedding-gemma2/data/behavior/*.csv' data/behavior/
+wc -l data/action/*.csv data/behavior/*.csv      # 15 fps 기준 30초 ≈ 450줄 이상
+```
+
+- 파일 이름이 정답 라벨이다. `idle.csv`가 없으면 모델이 모든 자세를 어떤 동작으로든 분류한다.
+
+## 2. 학습 (각 1~수 분)
+
+```bash
+~/eg2-mac/bin/python src/train_pose.py --data data/action   --task action   --window 30 --out models/action.pt
+~/eg2-mac/bin/python src/train_pose.py --data data/behavior --task behavior --window 80 --stride 10 --out models/behavior.pt
+```
+
+- 출력의 "최고 검증 정확도"와 혼동 행렬을 보고서에 그대로 옮긴다. 검증은 각 시퀀스 뒤 20%(시간순 분할)다.
+- `윈도가 부족함` 오류면 녹화를 더 한다. `--window`를 줄이는 것은 설정 변경이므로 결과를 보기 **전에** 정한다.
+- 검증 정확도를 보고 epoch·hidden을 다시 고르지 않는다(7단계와 같은 규칙).
+
+## 3. 보드로 옮기기
+
+```bash
+scp models/action.pt models/behavior.pt board-a:~/work/AIGJ_01_007_embedding-gemma2/models/
+```
+
+옮긴 뒤 Claude에게 알리면 보드에서 `--model models/action.pt --model models/behavior.pt`로 추론한다.

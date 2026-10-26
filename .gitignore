@@ -259,3 +259,8 @@ mobileclip*
 # 9단계 관절 좌표 녹화 (사람 동작 데이터, 커밋하지 않음)
 data/action/
 data/behavior/
+
+# 10단계 보정 산출물 (스냅샷·타겟 크롭에 강의실 사람이 찍힌다, 보정값은 이 강의실 배치에만 맞음)
+# 기준점 좌표 예시 calib/world_points.json만 커밋한다
+calib/*
+!calib/world_points.json
