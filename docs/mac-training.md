@@ -89,11 +89,13 @@ wc -l data/action/*.csv data/behavior/*.csv      # 15 fps 기준 30초 ≈ 450�
 ## 2. 학습 (각 1~수 분)
 
 ```bash
-~/eg2-mac/bin/python src/train_pose.py --data data/action   --task action   --window 30 --out models/action.pt
-~/eg2-mac/bin/python src/train_pose.py --data data/behavior --task behavior --window 80 --stride 10 --out models/behavior.pt
+mkdir -p runs
+~/eg2-mac/bin/python src/train_pose.py --data data/action   --task action   --window 30 --out models/action.pt 2>&1 | tee runs/train_action.log
+~/eg2-mac/bin/python src/train_pose.py --data data/behavior --task behavior --window 80 --stride 10 --out models/behavior.pt 2>&1 | tee runs/train_behavior.log
 ```
 
-- 출력의 "최고 검증 정확도"와 혼동 행렬을 보고서에 그대로 옮긴다. 검증은 각 시퀀스 뒤 20%(시간순 분할)다.
+- 출력의 "최고 검증 정확도"와 혼동 행렬을 보고서에 그대로 옮긴다. 로그(`runs/train_*.log`)도 모델과 함께 보드로 옮긴다(10/26: 출력이 없어 저장된 모델이 거의 학습 전 상태인 원인을 확인하지 못했다).
+- `train_pose.py`는 검증 정확도가 가장 높은 epoch의 가중치를 저장한다. epoch별 `val acc`가 초반에 최고였는지 로그에서 본다. 검증은 각 시퀀스 뒤 20%(시간순 분할)다.
 - `윈도가 부족함` 오류면 녹화를 더 한다. `--window`를 줄이는 것은 설정 변경이므로 결과를 보기 **전에** 정한다.
 - 검증 정확도를 보고 epoch·hidden을 다시 고르지 않는다(7단계와 같은 규칙).
 
@@ -101,6 +103,7 @@ wc -l data/action/*.csv data/behavior/*.csv      # 15 fps 기준 30초 ≈ 450�
 
 ```bash
 scp models/action.pt models/behavior.pt board-a:~/work/AIGJ_01_007_embedding-gemma2/models/
+scp runs/train_*.log board-a:~/work/AIGJ_01_007_embedding-gemma2/runs/pose/
 ```
 
-옮긴 뒤 Claude에게 알리면 보드에서 `--model models/action.pt --model models/behavior.pt`로 추론한다.
+옮긴 뒤 Claude에게 알리면 보드에서 평가하고(`src/eval_pose.py`, 학습과 같은 검증 분할을 다시 만들어 추론만) `--model models/action.pt --model models/behavior.pt`로 앱을 띄운다.

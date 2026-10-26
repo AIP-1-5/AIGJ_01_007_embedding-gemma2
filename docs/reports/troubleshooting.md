@@ -27,3 +27,6 @@
 | 2026-10-26 | 8 | yoloe `set_classes`에서 `ModuleNotFoundError: No module named 'clip'` (`AutoUpdate disabled by YOLO_AUTOINSTALL=False`) | YOLOE 텍스트 인코더가 ultralytics CLIP 패키지를 요구. 자동 설치는 꺼 둠 | 아래 행 |
 | 2026-10-26 | 8 | `pip install git+…/CLIP.git` → `No matching distribution found for setuptools>=70`, 맥에서도 `No route to host` | 교육장 네트워크가 pypi.org·files.pythonhosted.org를 막음 (github.com, huggingface.co는 됨) | ftfy는 GitHub 릴리스 wheel, wcwidth·CLIP은 GitHub 소스를 `--no-index --no-build-isolation -c ~/eg2/torch-pin.txt`로 설치. torch `2.14.1+cu132` 그대로 확인 |
 | 2026-10-26 | 8 | yoloe 첫 실행 때 `mobileclip_blt.ts` 572MB를 작업 폴더에 받음 | ultralytics가 텍스트 인코더를 현재 폴더에 저장 | 그대로 둠(`.gitignore`의 `mobileclip*`) |
+| 2026-10-26 | 9 | 1차 동작 녹화에서 엉덩이 관절 0%, wave에 손 든 프레임 0 | 카메라가 앉은 사용자를 1m 앞에서 내려다봄 | 카메라를 눈높이 수평, 약 2.5m로 옮겨 재녹화. 1차는 `data/action/_trial1/`로 분리 |
+| 2026-10-26 | 9 | 9-5 시도 12회에 요약 7개, 서 있는데 머무름 ↔ 지나감 반복 | 요약은 사람이 3초 넘게 사라져야 생김. 정지 중 흔들림이 `MOVE_TH` 근처로 추정 | 그대로 기록(사용자 결정). 기준값은 바꾸지 않음 |
+| 2026-10-26 | 9 | `action.pt` 보드 평가 정확도 0.358, 확률이 전부 0.7 미만 → 앱이 모델 판정을 안 씀 | 저장된 가중치가 초기값 수준. 검증 최고 epoch 저장 방식에서 초반 epoch이 뽑힌 것으로 추정(맥 출력 미확인) | 미해결. 맥 학습 출력 확인 후 같은 설정으로 재학습 |
