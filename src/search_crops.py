@@ -22,10 +22,13 @@ DIM = 512                                   # app.py와 같은 값
 torch.cuda.set_per_process_memory_fraction(0.4)   # app.py와 같은 GPU 상한
 GT = {"crops/yolo/000084_microwave.jpg", "crops/yolo/000090_microwave.jpg", "crops/yolo/000091_microwave.jpg",
       "crops/yolo/000092_microwave.jpg", "crops/yolo/000093_microwave.jpg", "crops/yolo/000098_microwave.jpg",
-      "crops/relabel/000019_microwave.jpg", "crops/relabel/000021_laptop.jpg"}
+      "crops/relabel/000019_microwave.jpg", "crops/relabel/000021_laptop.jpg",
+      # 10/26 yoloe: 세탁기 사진 격자 화면을 keyboard로 검출한 4개
+      "crops/yoloe/000015_keyboard.jpg", "crops/yoloe/000017_keyboard.jpg",
+      "crops/yoloe/000018_keyboard.jpg", "crops/yoloe/000019_keyboard.jpg"}
 QUERIES = ["세탁기", "드럼 세탁기", "washing machine", "전자레인지", "컵", "휴대폰"]
 
-paths = sorted(glob.glob("crops/yolo/*.jpg") + glob.glob("crops/relabel/*.jpg"))
+paths = sorted(glob.glob("crops/yolo/*.jpg") + glob.glob("crops/relabel/*.jpg") + glob.glob("crops/yoloe/*.jpg"))
 assert GT <= set(paths), f"정답 크롭 없음: {GT - set(paths)}"
 emb = load(vision=True)
 t = time.perf_counter()
@@ -45,11 +48,11 @@ for q in QUERIES:
     rec = {"top10": top}
     if "세탁기" in q or "washing" in q:
         ranks = sorted(int(np.where(order == paths.index(g))[0][0]) + 1 for g in GT)
-        rec |= {"gt_ranks": ranks, "hit_at_8": sum(r <= 8 for r in ranks), "top1_is_gt": paths[order[0]] in GT,
+        rec |= {"gt_ranks": ranks, "hit_at_n": sum(r <= len(GT) for r in ranks), "top1_is_gt": paths[order[0]] in GT,
                 "best_non_gt": round(float(max(s[i] for i in range(len(paths)) if paths[i] not in GT)), 3),
                 "worst_gt": round(float(min(s[paths.index(g)] for g in GT)), 3)}
     out["queries"][q] = rec
-    print(f"\n[{q}]" + (f"  정답 순위 {rec['gt_ranks']}  상위8 적중 {rec['hit_at_8']}/8" if "gt_ranks" in rec else ""))
+    print(f"\n[{q}]" + (f"  정답 순위 {rec['gt_ranks']}  상위{len(GT)} 적중 {rec['hit_at_n']}/{len(GT)}" if "gt_ranks" in rec else ""))
     for p, sc in top:
         print(f"  {sc:.3f}  {'*' if p in GT else ' '} {p}")
 
