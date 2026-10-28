@@ -344,7 +344,8 @@ def process_loop():
         if retarget.is_set():
             set_target(frames)
         skew = abs(got[0][0] - got[-1][0])
-        results = det.predict(frames, conf=0.5, half=True, verbose=False)
+        # 원문의 half=True 삭제: ultralytics 8.4.184에서 deprecated 경고 (10단계 보드 B 실측 때 바꿈)
+        results = det.predict(frames, conf=0.5, verbose=False)
         kps = [np.concatenate([r.keypoints.xy.cpu().numpy(), r.keypoints.conf.cpu().numpy()[..., None]], -1)
                if r.keypoints is not None and r.keypoints.conf is not None else np.zeros((0, 17, 3)) for r in results]
         now = now_global = time.time()
