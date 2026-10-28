@@ -4,6 +4,8 @@ Jetson Orin Nano Super 8GB에서 EmbeddingGemma 2로 텍스트·영상·음성�
 
 ## 진행 상황
 
+최종: [결과 보고서](docs/reports/final-report.md) · [결과 형식 문서](docs/reports/result-format.md)
+
 일정: [docs/roadmap.md](docs/roadmap.md) · 결정 기록: [docs/decisions.md](docs/decisions.md) · 학습 노트: [docs/study/](docs/study/) · 오류 기록: [docs/reports/troubleshooting.md](docs/reports/troubleshooting.md)
 
 | 단계 | 결과 | 판정 |
@@ -17,7 +19,7 @@ Jetson Orin Nano Super 8GB에서 EmbeddingGemma 2로 텍스트·영상·음성�
 | 7 도메인 미세 조정 | [step-07](docs/reports/step-07.md) | 부분 통과 (acc@1 0.817→0.867, 일반 질의 1개 회귀) |
 | 8 웹캠 물체 추출·검색 | [step-08](docs/reports/step-08.md) · [노트](docs/study/step-08-object-search.md) | 부분 통과 (relabel이 세탁기 바로잡음, "세탁기" 검색 통과, yoloe는 세탁기를 keyboard로) |
 | 9 사람 동작 인식 | [step-09](docs/reports/step-09.md) · [노트](docs/study/step-09-pose.md) | 진행 중 (9-1·9-2 통과: 이벤트 44→12, 손흔들기 0→3. 9-5 부분, 9-3 동작 녹화 완료, 9-6 미통과: 검증 0.384, 학습 부분 암기) |
-| 10 카메라 2대 접근 감지 | [step-10](docs/reports/step-10.md) | 준비 (코드 이식·가상 카메라 검증, 카메라 2대 대기) |
+| 10 카메라 2대 접근 감지 | [step-10](docs/reports/step-10.md) · [노트](docs/study/step-10-proximity.md) | 대부분 통과 (보드 B 팀 합동: stereo 오차 ≈0.15m, 시나리오 5종 3/3, TTC 최대 3초 먼저. 재투영 3.78/3.22px 근소 미통과, single 1.26m 빗나감) |
 
 ## 구성
 
